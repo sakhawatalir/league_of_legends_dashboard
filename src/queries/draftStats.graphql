@@ -1,0 +1,107 @@
+query GetDraftStats($titleId: ID!, $tournamentId: ID!, $seriesId: ID!, $hasSeriesId: Boolean!) {
+  # Get list of series in tournament
+  allSeries(
+    filter: {
+      titleId: $titleId
+      tournament: { 
+        id: { in: [$tournamentId] }
+      }
+    }
+  ) {
+    edges {
+      node {
+        id
+        startTimeScheduled
+        type
+        format {
+          id 
+          name
+          nameShortened
+        }
+        tournament {
+          id
+          name
+          nameShortened
+        }
+        teams {
+          baseInfo {
+            id
+            name
+            logoUrl
+          }
+          scoreAdvantage
+        }
+      }
+    }
+  }
+
+  # Get detailed game state for a specific series when selected
+  series(id: $seriesId) @include(if: $hasSeriesId) {
+          id
+          type
+          startTimeScheduled
+          productServiceLevels {
+            productName
+            serviceLevel
+          }
+          teams {
+            baseInfo {
+              id
+              name
+              logoUrl
+              colorPrimary
+              colorSecondary
+            }
+            scoreAdvantage
+          }
+          players {
+            id
+            nickname
+            imageUrl
+            roles {
+              id
+              name
+            }
+          }
+          format {
+            id
+            name
+            nameShortened
+          }
+          tournament {
+            id
+            name
+            nameShortened
+          }
+          title {
+            id
+            name
+            nameShortened
+          }
+      }
+  # Get champions for name/image lookup
+  champions: contentCatalogEntities(
+    filter: {
+      entityType: { in: [CHARACTER] }
+      title: { id: { in: [$titleId] } }
+    }
+  ) {
+    edges {
+      node {
+        id
+        name
+        imageUrl
+        ... on ContentCatalogCharacter {
+          externalLinks {
+            dataProvider {
+              name
+            }
+            externalEntity {
+              id
+            }
+          }
+        }
+      }
+    }
+  }
+}

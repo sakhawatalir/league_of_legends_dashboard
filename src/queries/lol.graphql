@@ -1,0 +1,194 @@
+# Get main dashboard data
+query GetLeagueData($titleId: ID!, $windowStartTime: String, $windowEndTime: String, $seriesType: SeriesType!, $searchQuery: String) {
+  title(id: $titleId) {
+    id
+    name
+  }
+  contentCatalogVersions {
+    edges {
+      node {
+        id
+        name
+        publishedOn
+        title {
+          id
+          name
+        }
+      }
+    }
+  }
+  tournaments(
+    filter: { 
+      titleId: $titleId,
+      startDate: {
+        gte: $windowStartTime,
+        lte: $windowEndTime
+      },
+      name: {
+        contains: $searchQuery
+      }
+    }
+  ) {
+    edges {
+      node {
+        id
+        name
+        nameShortened
+        startDate
+        endDate
+        venueType
+        teams {
+          id
+          name
+          logoUrl
+        }
+      }
+    }
+  }
+  allSeries(
+    filter: { 
+      titleId: $titleId,
+      startTimeScheduled: {
+        gte: $windowStartTime,
+        lte: $windowEndTime
+      },
+      types: [$seriesType],
+      tournament: {
+        name: {
+          contains: $searchQuery
+        }
+      }
+    }
+    orderBy: StartTimeScheduled
+    orderDirection: DESC
+  ) {
+    edges {
+      node {
+        id
+        format {
+          id
+          name
+        }
+        startTimeScheduled
+        tournament {
+          id
+          name
+          nameShortened
+          venueType
+          startDate
+          endDate
+        }
+        teams {
+          baseInfo {
+            id
+            name
+            logoUrl
+          }
+          scoreAdvantage
+        }
+        title {
+          id
+          name
+        }
+      }
+    }
+  }
+}
+
+# 
+query GetLeagueDataById($leagueId: ID!) {
+  allSeries(
+    filter: { 
+      tournament: {
+        id: { in: [$leagueId] }
+      }
+    }
+    orderBy: StartTimeScheduled
+    orderDirection: DESC
+  ) {
+    edges {
+      node {
+        id
+        format {
+          id
+          name
+        }
+        startTimeScheduled
+        tournament {
+          id
+          name
+          nameShortened
+          venueType
+          startDate
+          endDate
+        }
+        teams {
+          baseInfo {
+            id
+            name
+            logoUrl
+          }
+          scoreAdvantage
+        }
+        title {
+          id
+          name
+        }
+      }
+    }
+  }
+}
+
+# Get team details
+query GetTeamDetails($teamId: ID!) {
+  team(id: $teamId) {
+    id
+    name
+    logoUrl
+    externalLinks {
+      dataProvider {
+        name
+      }
+      externalEntity {
+        id
+      }
+    }
+  }
+}
+
+# Get tournaments with filter
+query GetTournaments($titleId: ID!) {
+  tournaments {
+    edges {
+      node {
+        id
+        name
+        nameShortened
+        startDate
+        endDate
+        teams {
+          id
+          name
+          logoUrl
+        }
+      }
+    }
+  }
+}
+
+# Get tournament stats filtered by league
+query GetLeagueStats($titleId: ID!, $leagueName: String) {
+  tournaments {
+    edges {
+      node {
+        id
+        name
+        teams {
+          id
+          name
+          logoUrl
+        }
+      }
+    }
+  }
+}

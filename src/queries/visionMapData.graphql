@@ -1,0 +1,20 @@
+# Get vision map data for a team
+query GetVisionMapData($seriesId: ID!, $teamId: ID!) {
+  series(id: $seriesId) {
+    id
+    startTimeScheduled
+    teams {
+      baseInfo {
+        id
+        name
+        logoUrl
+      }
+      scoreAdvantage
+    }
+    tournament {
+      id
+      name
+      nameShortened
+    }
+  }
+}

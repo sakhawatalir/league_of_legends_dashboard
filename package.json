@@ -1,0 +1,40 @@
+{
+  "name": "nextjs-graphql-app",
+  "version": "1.0.0",
+  "description": "A Next.js application with GraphQL integration",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "graphql-codegen && next build",
+    "start": "next start",
+    "inspect": "graphql-inspector audit 'src/graphql/**/*.graphql' -d",
+    "codegen": "graphql-codegen --config codegen.yml",
+    "codegen:watch": "graphql-codegen --config codegen.yml --watch",
+    "schema:download": "apollo schema:download --endpoint=https://api.grid.gg/central-data/graphql schema.json"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.13.8",
+    "apollo-server-micro": "latest",
+    "graphql": "^16.11.0",
+    "jszip": "^3.10.1",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.6",
+    "@graphql-codegen/introspection": "^4.0.3",
+    "@graphql-codegen/schema-ast": "^4.1.0",
+    "@graphql-codegen/typescript": "^4.1.6",
+    "@graphql-codegen/typescript-operations": "^4.6.1",
+    "@graphql-codegen/typescript-react-apollo": "^4.3.3",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "autoprefixer": "^10.4.13",
+    "graphql-codegen-typescript-common": "0.18.2",
+    "postcss": "^8.4.21",
+    "tailwindcss": "^3.2.4",
+    "typescript": "^5.8.3"
+  },
+  "license": "MIT"
+}

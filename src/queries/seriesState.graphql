@@ -1,0 +1,19 @@
+query GetSeriesState($seriesId: ID!) {
+  series(id: $seriesId) {
+    id
+    type
+    startTimeScheduled
+    productServiceLevels {
+      productName
+      serviceLevel
+    }
+    teams {
+      baseInfo {
+        id
+        name
+        logoUrl
+      }
+      scoreAdvantage
+    }
+  }
+}

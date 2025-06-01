@@ -1,0 +1,40 @@
+query GetSchemaTypes {
+  __schema {
+    types {
+      name
+      kind
+      description
+      fields {
+        name
+        description
+        type {
+          name
+          kind
+        }
+      }
+    }
+  }
+}
+
+query GetQueryType {
+  __schema {
+    queryType {
+      name
+      fields {
+        name
+        description
+        type {
+          name
+          kind
+        }
+        args {
+          name
+          type {
+            name
+            kind
+          }
+        }
+      }
+    }
+  }
+}

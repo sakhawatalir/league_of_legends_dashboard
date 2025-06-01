@@ -1,0 +1,19 @@
+# Search for tournaments by name
+query SearchTournaments($titleId: ID!, $name: StringFilter) {
+  tournaments(filter: { titleId: $titleId, name: $name }) {
+    edges {
+      node {
+        id
+        name
+        nameShortened
+        startDate
+        endDate
+        teams {
+          id
+          name
+          logoUrl
+        }
+      }
+    }
+  }
+}

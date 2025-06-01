@@ -1,0 +1,66 @@
+overwrite: true
+schema:
+  - https://api.grid.gg/central-data/graphql:
+      headers:
+        x-api-key: "62Kk9rIyA5YTy5tzyBHiUJdaOFTVInvbd7WhZOA4"
+documents:
+  - "src/**/*.graphql"
+  - "!src/generated/**/*"
+config:
+  skipTypename: false
+  enumsAsTypes: true
+  strictScalars: true
+  declarationKind: 'interface'
+
+generates:
+  src/generated/schema.json:
+    plugins:
+      - introspection
+    config:
+      minify: true
+
+  src/generated/schema.graphql:
+    plugins:
+      - schema-ast
+    config:
+      commentDescriptions: true
+
+  src/generated/types.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+    config:
+      scalars:
+        Boolean: boolean
+        Cursor: any
+        Date: string
+        DateTime: Date
+        Decimal: number
+        Float: number
+        HexColor: string
+        ID: string
+        Int: number
+        String: string
+        Url: string
+
+  src/generated/hooks.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      withHooks: true
+      withComponent: false
+      withHOC: false
+      scalars:
+        Boolean: boolean
+        Cursor: any
+        Date: string
+        DateTime: Date
+        Decimal: number
+        Float: number
+        HexColor: string
+        ID: string
+        Int: number
+        String: string
+        Url: string

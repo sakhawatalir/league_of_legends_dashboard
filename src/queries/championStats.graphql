@@ -1,0 +1,26 @@
+query GetChampionStats($titleId: ID!) {
+  champions: contentCatalogEntities(
+    filter: {
+      entityType: { in: [CHARACTER] }
+      title: { id: { in: [$titleId] } }
+    }
+  ) {
+    edges {
+      node {
+        id
+        name
+        imageUrl
+        ... on ContentCatalogCharacter {
+          externalLinks {
+            dataProvider {
+              name
+            }
+            externalEntity {
+              id
+            }
+          }
+        }
+      }
+    }
+  }
+}
