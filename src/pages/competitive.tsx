@@ -9,7 +9,7 @@ export default function Competitive() {
   const [stats, setStats] = useState({});
   const [totalMatches, setTotalMatches] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const [availableFiles, setAvailableFiles] = useState([]);
+  const [availableFiles, setAvailableFiles] = useState<string[]>([]);
   const [selectedFile, setSelectedFile] = useState('');
 
   // Available JSON files in the project directory
