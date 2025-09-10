@@ -78,8 +78,8 @@ export default function Competitive() {
 
   const processEvents = (data: any) => {
     console.log('Processing events with data:', data);
-    const newStats = {};
-    const picksByTeam = {};
+    const newStats: { [key: string]: { picks: number; wins: number; bans: number } } = {};
+    const picksByTeam: { [key: string]: any } = {};
     let matchCount = 0;
 
     // Handle both single match data and array of matches
