@@ -374,10 +374,10 @@ export default function Competitive() {
       "zoe": "Zoe",
       "zyra": "Zyra"
     };
-    return map[baseName.toLowerCase()] || capitalizeFirstLetter(baseName);
+    return (map as { [key: string]: string })[baseName.toLowerCase()] || capitalizeFirstLetter(baseName);
   };
 
-  const capitalizeFirstLetter = (str) => {
+  const capitalizeFirstLetter = (str: string) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
 
