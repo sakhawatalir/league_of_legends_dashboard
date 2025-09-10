@@ -44,7 +44,7 @@ export default function ScrimsPage() {
         {/* Loop over each series */}
         {series.map((s, idx) => (
           <div key={idx} className="mb-12">
-            <DraftStats series={s} />
+            <DraftStats titleId={s.title?.id || ''} leagueId={s.id} />
             {s.games && <GameStats games={s.games} />}
             {s.visionMap && <VisionMap visionData={s.visionMap} />}
           </div>
