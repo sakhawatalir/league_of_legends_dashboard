@@ -29,6 +29,9 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     res.status(200).json(jsonFiles);
   } catch (error) {
     console.error('Error listing JSON files:', error);
-    res.status(500).json({ message: 'Error listing files', error: error.message });
+    res.status(500).json({ 
+      message: 'Error listing files', 
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    });
   }
 }
