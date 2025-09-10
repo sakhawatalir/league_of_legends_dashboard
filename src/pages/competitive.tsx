@@ -207,7 +207,7 @@ export default function Competitive() {
   };
 
   // Map Riot internal names to Data Dragon champion filenames
-  const riotChampionNameMap = (baseName) => {
+  const riotChampionNameMap = (baseName: string) => {
     const map = {
       "monkey": "Wukong",
       "monkeyking": "Wukong",
