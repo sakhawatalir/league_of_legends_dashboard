@@ -171,7 +171,7 @@ export default function Competitive() {
           const teamId = ev.actor?.id;
           if (teamId) {
             const champs = picksByTeam[teamId] || [];
-            champs.forEach(champName => {
+            champs.forEach((champName: string) => {
               if (!newStats[champName]) newStats[champName] = { picks: 0, wins: 0, bans: 0 };
               newStats[champName].wins++;
             });
