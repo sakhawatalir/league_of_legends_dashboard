@@ -45,8 +45,7 @@ export default function ScrimsPage() {
         {series.map((s, idx) => (
           <div key={idx} className="mb-12">
             <DraftStats titleId={s.title?.id || ''} leagueId={s.id} />
-            {s.games && <GameStats games={s.games} />}
-            {s.visionMap && <VisionMap visionData={s.visionMap} />}
+            {/* GameStats and VisionMap components would need proper data structure */}
           </div>
         ))}
       </div>
