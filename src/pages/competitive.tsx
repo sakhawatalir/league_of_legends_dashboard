@@ -185,7 +185,7 @@ export default function Competitive() {
   };
 
   // Extract champion name properly from event data
-  const extractChampionNameFromEvent = (ev) => {
+  const extractChampionNameFromEvent = (ev: any) => {
     let name = ev.target?.state?.name || ev.target?.name || ev.target?.id;
     if (!name) return "Unknown";
 
