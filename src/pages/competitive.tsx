@@ -76,7 +76,7 @@ export default function Competitive() {
     }
   };
 
-  const processEvents = (data) => {
+  const processEvents = (data: any) => {
     console.log('Processing events with data:', data);
     const newStats = {};
     const picksByTeam = {};
