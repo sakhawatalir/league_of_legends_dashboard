@@ -471,7 +471,7 @@ export default function Competitive() {
                 </thead>
                 <tbody className="bg-dark-800 divide-y divide-white/10">
                   {sortedChampions.map((champName, index) => {
-                    const s = stats[champName];
+                    const s = (stats as { [key: string]: { picks: number; wins: number; bans: number } })[champName];
                     const winRate = s.picks ? ((s.wins / s.picks) * 100).toFixed(2) + '%' : '0%';
                     const pickRate = totalMatches ? ((s.picks / totalMatches) * 100).toFixed(2) + '%' : '0%';
                     const banRate = totalMatches ? ((s.bans / totalMatches) * 100).toFixed(2) + '%' : '0%';
