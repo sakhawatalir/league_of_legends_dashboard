@@ -153,11 +153,11 @@ export default function Competitive() {
           matchCount++;
           // Find the winning team from the series state
           if (match.seriesState && match.seriesState.teams) {
-            const winningTeam = match.seriesState.teams.find(team => team.won);
+            const winningTeam = match.seriesState.teams.find((team: any) => team.won);
             if (winningTeam) {
               const teamId = winningTeam.id;
               const champs = picksByTeam[teamId] || [];
-              champs.forEach(champName => {
+              champs.forEach((champName: string) => {
                 if (!newStats[champName]) newStats[champName] = { picks: 0, wins: 0, bans: 0 };
                 newStats[champName].wins++;
               });
