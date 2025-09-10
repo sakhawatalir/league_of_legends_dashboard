@@ -158,7 +158,7 @@ const VisionMap: React.FC<VisionMapProps> = ({ match, selectedTeam }) => {
         )}
         
         <div className="flex items-center justify-between text-xs text-dark-400 px-1">
-          <span>Map: {match.tournament?.nameShortened || 'Summoner\'s Rift'}</span>
+          <span>Map: Summoner's Rift</span>
           <span>{new Date(match.startTimeScheduled).toLocaleDateString()}</span>
         </div>
         
