@@ -490,8 +490,8 @@ export default function Competitive() {
                             height={40}
                             className="rounded-lg"
                             onError={(e) => {
-                              e.target.src = '/api/placeholder/40/40';
-                              e.target.onerror = null;
+                              (e.target as HTMLImageElement).src = '/api/placeholder/40/40';
+                              (e.target as HTMLImageElement).onerror = null;
                             }}
                           />
                         </td>
