@@ -1,132 +1,42 @@
-# Get team statistics from stats-feed-gateway
-query GetTeamStats($teamId: ID!, $timeWindow: TimeWindow) {
-  teamStatistics(teamId: $teamId, timeWindow: $timeWindow) {
-    entityId
-    entityType
-    entityData {
-      name
-      logoUrl
-      colors {
-        primary
-        secondary
+# Get team statistics
+query GetTeamStats($teamId: ID!) {
+  team(id: $teamId) {
+    id
+    name
+    logoUrl
+    externalLinks {
+      dataProvider {
+        name
+      }
+      externalEntity {
+        id
       }
     }
-    statistics {
-      teamStatistics {
+  }
+}
+
+# Get series for a specific tournament
+query GetTournamentSeries($tournamentId: ID!) {
+  allSeries(
+    filter: { tournament: { id: { in: [$tournamentId] } } }
+    orderBy: StartTimeScheduled
+    orderDirection: DESC
+  ) {
+    edges {
+      node {
         id
-        aggregationSeriesIds
-        series {
-          __typename
-          count
-          kills {
-            sum
-            min
-            max
-            avg
+        startTimeScheduled
+        teams {
+          baseInfo {
+            id
+            name
+            logoUrl
           }
-          killAssistsGiven {
-            sum
-            min
-            max
-            avg
-          }
-          deaths {
-            sum
-            min 
-            max
-            avg
-          }
-          goldEarned {
-            sum
-            min
-            max
-            avg
-          }
-          damageDealtToChampions {
-            sum
-            min
-            max
-            avg
-          }
-          visionScore {
-            sum
-            min
-            max
-            avg
-          }
-          creepScore {
-            sum
-            min
-            max
-            avg
-          }
-          won {
-            value
-            count
-            percentage
-            streak {
-              min
-              max
-              current
-            }
-          }
-          firstKill {
-            value
-            count 
-            percentage
-            streak {
-              min
-              max
-              current
-            }
-          }
-          objectives {
-            type
-            completionCount {
-              sum
-              min
-              max
-              avg
-            }
-          }
+          scoreAdvantage
         }
-        game {
-          __typename
-          count
-          money {
-            sum
-            min
-            max
-            avg
-          }
-          inventoryValue {
-            sum
-            min
-            max
-            avg
-          }
-          netWorth {
-            sum 
-            min
-            max
-            avg
-          }
-          won {
-            value
-            count
-            percentage
-            streak {
-              min 
-              max
-              current
-            }
-          }
-          duration {
-            sum
-            min
-            max
-            avg
-          }
+        tournament {
+          id
+          name
         }
       }
     }

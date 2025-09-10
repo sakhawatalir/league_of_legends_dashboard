@@ -47,7 +47,7 @@ const TeamStats: React.FC<TeamStatsProps> = ({ team, series }) => {
     return teamEntry && (teamEntry.scoreAdvantage || 0) > 0;
   }).length || 0;
   const losses = totalGames - wins;
-  const winRate = statsData.winRate;
+  const winRate = totalGames > 0 ? (wins / totalGames) * 100 : 0;
   
   // Calculate side-based stats from series data
   const blueSideGames = series?.filter(s => s.teams?.[0]?.baseInfo?.id === team.id).length || 0;

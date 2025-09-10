@@ -262,7 +262,7 @@ const DraftStats: React.FC<DraftStatsProps> = ({ titleId, leagueId }) => {
 
   const { games: currentSeriesGames, loading: gamesLoading, error: gamesError } = useSeriesGames({
     seriesId: leagueId || '',
-    apiKey: process.env.NEXT_PUBLIC_GRID_API_KEY || ''
+    apiKey: process.env.NEXT_PUBLIC_GRID_API_KEY || process.env.NEXT_PUBLIC_GRIDGG_API_KEY || ''
   });
 
   const allGamesData = useMemo(() => {
@@ -361,19 +361,19 @@ const DraftStats: React.FC<DraftStatsProps> = ({ titleId, leagueId }) => {
     });
 
     return {
-      blueSideWinRate: stats.blueSideWins / stats.totalGames,
-      redSideWinRate: stats.redSideWins / stats.totalGames,
-      firstPickWinRate: stats.firstPickWins / stats.totalGames,
+      blueSideWinRate: (stats.blueSideWins / stats.totalGames) * 100,
+      redSideWinRate: (stats.redSideWins / stats.totalGames) * 100,
+      firstPickWinRate: (stats.firstPickWins / stats.totalGames) * 100,
       totalGames: stats.totalGames,
       mostBanned: Array.from(stats.championStats.entries())
         .map(([championId, stats]) => ({
           ...championsMap[championId],
-          banRate: stats.bans / allGamesData.length
+          banRate: (stats.bans / allGamesData.length) * 100
         }))
         .sort((a, b) => b.banRate - a.banRate)
         .slice(0, 5),
-      firstPhasePickRate: stats.firstPhasePicks / stats.totalPicks,
-      secondPhasePickRate: stats.secondPhasePicks / stats.totalPicks
+      firstPhasePickRate: (stats.firstPhasePicks / stats.totalPicks) * 100,
+      secondPhasePickRate: (stats.secondPhasePicks / stats.totalPicks) * 100
     };
   }, [allGamesData, championsMap]);
 

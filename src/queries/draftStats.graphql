@@ -1,12 +1,7 @@
-query GetDraftStats($titleId: ID!, $tournamentId: ID!, $seriesId: ID!, $hasSeriesId: Boolean!) {
+query GetDraftStats($titleId: ID!, $tournamentId: ID!) {
   # Get list of series in tournament
   allSeries(
-    filter: {
-      titleId: $titleId
-      tournament: { 
-        id: { in: [$tournamentId] }
-      }
-    }
+    filter: { titleId: $titleId, tournament: { id: { in: [$tournamentId] } } }
   ) {
     edges {
       node {
@@ -14,7 +9,7 @@ query GetDraftStats($titleId: ID!, $tournamentId: ID!, $seriesId: ID!, $hasSerie
         startTimeScheduled
         type
         format {
-          id 
+          id
           name
           nameShortened
         }
@@ -35,50 +30,6 @@ query GetDraftStats($titleId: ID!, $tournamentId: ID!, $seriesId: ID!, $hasSerie
     }
   }
 
-  # Get detailed game state for a specific series when selected
-  series(id: $seriesId) @include(if: $hasSeriesId) {
-          id
-          type
-          startTimeScheduled
-          productServiceLevels {
-            productName
-            serviceLevel
-          }
-          teams {
-            baseInfo {
-              id
-              name
-              logoUrl
-              colorPrimary
-              colorSecondary
-            }
-            scoreAdvantage
-          }
-          players {
-            id
-            nickname
-            imageUrl
-            roles {
-              id
-              name
-            }
-          }
-          format {
-            id
-            name
-            nameShortened
-          }
-          tournament {
-            id
-            name
-            nameShortened
-          }
-          title {
-            id
-            name
-            nameShortened
-          }
-      }
   # Get champions for name/image lookup
   champions: contentCatalogEntities(
     filter: {

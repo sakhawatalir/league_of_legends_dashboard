@@ -1,10 +1,12 @@
 import React from 'react';
-import Layout from '../components/Layout';
+import DashboardShell from '../components/Layout/DashboardShell';
 import LoLDashboard from '../components/Dashboard/LoLDashboard';
 
 const Home: React.FC = () => {
   return (
-    <LoLDashboard />
+    <DashboardShell>
+      <LoLDashboard />
+    </DashboardShell>
   );
 };
 

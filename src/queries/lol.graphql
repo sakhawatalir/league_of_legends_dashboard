@@ -1,5 +1,11 @@
 # Get main dashboard data
-query GetLeagueData($titleId: ID!, $windowStartTime: String, $windowEndTime: String, $seriesType: SeriesType!, $searchQuery: String) {
+query GetLeagueData(
+  $titleId: ID!
+  $windowStartTime: Date
+  $windowEndTime: Date
+  $seriesType: SeriesType!
+  $searchQuery: String
+) {
   title(id: $titleId) {
     id
     name
@@ -18,15 +24,10 @@ query GetLeagueData($titleId: ID!, $windowStartTime: String, $windowEndTime: Str
     }
   }
   tournaments(
-    filter: { 
-      titleId: $titleId,
-      startDate: {
-        gte: $windowStartTime,
-        lte: $windowEndTime
-      },
-      name: {
-        contains: $searchQuery
-      }
+    filter: {
+      titleId: $titleId
+      startDate: { gte: $windowStartTime, lte: $windowEndTime }
+      name: { contains: $searchQuery }
     }
   ) {
     edges {
@@ -46,18 +47,10 @@ query GetLeagueData($titleId: ID!, $windowStartTime: String, $windowEndTime: Str
     }
   }
   allSeries(
-    filter: { 
-      titleId: $titleId,
-      startTimeScheduled: {
-        gte: $windowStartTime,
-        lte: $windowEndTime
-      },
-      types: [$seriesType],
-      tournament: {
-        name: {
-          contains: $searchQuery
-        }
-      }
+    filter: {
+      titleId: $titleId
+      types: [$seriesType]
+      tournament: { name: { contains: $searchQuery } }
     }
     orderBy: StartTimeScheduled
     orderDirection: DESC
@@ -95,14 +88,10 @@ query GetLeagueData($titleId: ID!, $windowStartTime: String, $windowEndTime: Str
   }
 }
 
-# 
+# Get league data by ID
 query GetLeagueDataById($leagueId: ID!) {
   allSeries(
-    filter: { 
-      tournament: {
-        id: { in: [$leagueId] }
-      }
-    }
+    filter: { tournament: { id: { in: [$leagueId] } } }
     orderBy: StartTimeScheduled
     orderDirection: DESC
   ) {
@@ -158,7 +147,7 @@ query GetTeamDetails($teamId: ID!) {
 
 # Get tournaments with filter
 query GetTournaments($titleId: ID!) {
-  tournaments {
+  tournaments(filter: { titleId: $titleId }) {
     edges {
       node {
         id
@@ -178,7 +167,7 @@ query GetTournaments($titleId: ID!) {
 
 # Get tournament stats filtered by league
 query GetLeagueStats($titleId: ID!, $leagueName: String) {
-  tournaments {
+  tournaments(filter: { titleId: $titleId, name: { contains: $leagueName } }) {
     edges {
       node {
         id
@@ -187,6 +176,82 @@ query GetLeagueStats($titleId: ID!, $leagueName: String) {
           id
           name
           logoUrl
+        }
+      }
+    }
+  }
+}
+
+# Get tournaments by date range
+query GetTournamentsByDateRange(
+  $titleId: ID!
+  $startDate: Date
+  $endDate: Date
+) {
+  tournaments(
+    filter: { titleId: $titleId, startDate: { gte: $startDate, lte: $endDate } }
+  ) {
+    edges {
+      node {
+        id
+        name
+        nameShortened
+        startDate
+        endDate
+        venueType
+        teams {
+          id
+          name
+          logoUrl
+        }
+      }
+    }
+  }
+}
+
+# Get series by time range (using String for startTimeScheduled)
+query GetSeriesByTimeRange(
+  $titleId: ID!
+  $startTime: String
+  $endTime: String
+  $seriesType: SeriesType!
+) {
+  allSeries(
+    filter: {
+      titleId: $titleId
+      startTimeScheduled: { gte: $startTime, lte: $endTime }
+      types: [$seriesType]
+    }
+    orderBy: StartTimeScheduled
+    orderDirection: DESC
+  ) {
+    edges {
+      node {
+        id
+        format {
+          id
+          name
+        }
+        startTimeScheduled
+        tournament {
+          id
+          name
+          nameShortened
+          venueType
+          startDate
+          endDate
+        }
+        teams {
+          baseInfo {
+            id
+            name
+            logoUrl
+          }
+          scoreAdvantage
+        }
+        title {
+          id
+          name
         }
       }
     }

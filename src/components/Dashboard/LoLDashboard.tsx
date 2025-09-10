@@ -33,17 +33,17 @@ const LoLDashboard = () => {
     }
   });
   
-  // Main data query
-  const { loading, error, data } = useGetLeagueDataQuery({
-    variables: {
-      titleId: "3",
-      windowStartTime: "2022-01-01T00:00:00.000+05:30",
-      windowEndTime: "2025-05-29T23:59:59.999+05:30",
-      seriesType: selectedSeriesType
-    },
-    errorPolicy: 'all',
-    notifyOnNetworkStatusChange: true
-  });
+   const { loading, error, data } = useGetLeagueDataQuery({
+     variables: {
+       titleId: "3",
+       seriesType: selectedSeriesType,
+       // Remove date filtering to test if the query works without it
+       windowStartTime: undefined,
+       windowEndTime: undefined,
+     },
+     errorPolicy: "all",
+     notifyOnNetworkStatusChange: true,
+   });
 
   // Transform data to League[]
   const leagues = useMemo((): League[] => {
