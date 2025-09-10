@@ -48,3 +48,5 @@ next-env.d.ts
 # Generated API files
 /src/generated/*
 !src/generated/.gitkeep
+
+.vercel
