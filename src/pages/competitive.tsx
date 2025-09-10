@@ -44,7 +44,7 @@ export default function Competitive() {
     }
   };
 
-  const handleFileSelect = async (filename) => {
+  const handleFileSelect = async (filename: string) => {
     if (!filename) return;
 
     setIsLoading(true);
