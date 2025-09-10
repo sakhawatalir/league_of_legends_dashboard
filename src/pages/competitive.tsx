@@ -94,7 +94,7 @@ export default function Competitive() {
       }
       console.log(`Match ${index} has ${match.events.length} events`);
 
-              match.events.forEach((ev, evIndex) => {
+              match.events.forEach((ev: any, evIndex: number) => {
           console.log(`Event ${evIndex}:`, ev.type, ev);
           
           if (ev.type === 'team-picked-character') {
