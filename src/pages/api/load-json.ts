@@ -59,6 +59,9 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     }
   } catch (error) {
     console.error('Error loading JSON file:', error);
-    res.status(500).json({ message: 'Error loading file', error: error.message });
+    res.status(500).json({ 
+      message: 'Error loading file', 
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    });
   }
 }
