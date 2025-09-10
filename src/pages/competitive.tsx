@@ -109,7 +109,7 @@ export default function Competitive() {
 
         // Handle Grid.gg draft actions
         if (ev.type === 'grid-sampled-feed' && match.seriesState?.draftActions) {
-          match.seriesState.draftActions.forEach(draftAction => {
+          match.seriesState.draftActions.forEach((draftAction: any) => {
             if (draftAction.type === 'pick') {
               const champName = draftAction.draftable?.name;
               if (champName) {
