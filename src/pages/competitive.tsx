@@ -383,7 +383,7 @@ export default function Competitive() {
 
   // Sort champions by pick rate for better display
   const sortedChampions = Object.keys(stats).sort((a, b) => {
-    return stats[b].picks - stats[a].picks;
+    return (stats as { [key: string]: { picks: number; wins: number; bans: number } })[b].picks - (stats as { [key: string]: { picks: number; wins: number; bans: number } })[a].picks;
   });
 
   return (
